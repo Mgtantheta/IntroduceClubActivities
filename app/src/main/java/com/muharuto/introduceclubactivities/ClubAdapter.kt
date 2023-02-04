@@ -30,6 +30,4 @@ class ClubAdapter(private val dataset: List<ClubSummary>) : RecyclerView.Adapter
 
     //リストの長さを返す
     override fun getItemCount() = dataset.size
-
-
 }
