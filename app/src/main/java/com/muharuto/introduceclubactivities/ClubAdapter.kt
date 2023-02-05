@@ -1,10 +1,12 @@
 package com.muharuto.introduceclubactivities
 
+import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ClubAdapter(private val dataset: List<ClubSummary>) : RecyclerView.Adapter<ClubViewHolder>() {
+class ClubAdapter(private val context: Context, private val dataset: List<ClubSummary>) : RecyclerView.Adapter<ClubViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,7 +23,7 @@ class ClubAdapter(private val dataset: List<ClubSummary>) : RecyclerView.Adapter
     ) {
         val item = dataset[position]
         holder.clubNameView.text = item.name
-        holder.clubImageView.setImageBitmap(item.image)
+        holder.clubImageView.setImageBitmap(BitmapFactory.decodeResource(context.resources, item.image))
         holder.clubActivityDayOfWeekView.text = item.activityDayOfWeek.joinToString(",") {
             it.name
         }
