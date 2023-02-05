@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class ClubViewModel : ViewModel() {
     //Mutableは書き換えられるから書き換えられないようにする
-    private val _clubSummaryList = MutableLiveData<List<ClubSummary>>(emptyList())
+    private val _clubSummaryList = MutableLiveData<List<ClubSummary>>()
     val clubSummaryList: LiveData<List<ClubSummary>> = _clubSummaryList
 
     init {
@@ -26,6 +26,17 @@ class ClubViewModel : ViewModel() {
                 image = R.drawable.sample,
                 name = "サッカー",
                 activityDayOfWeek = listOf(ActivityDayOfWeek.THURSDAY)
+            )
+        )
+    }
+
+    fun addClubSummary() {
+         _clubSummaryList.value = _clubSummaryList.value?.plus(
+            ClubSummary(
+                id = 1,
+                image = R.drawable.sample,
+                name = "クライミング",
+                activityDayOfWeek = listOf(ActivityDayOfWeek.FRIDAY)
             )
         )
     }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.muharuto.introduceclubactivities.databinding.FragmentHomeBinding
 
@@ -28,13 +27,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(view.context)
-        clubViewModel.clubSummaryList.observe(viewLifecycleOwner, Observer{
-            binding.recyclerView.adapter =
-                ClubAdapter(requireContext(), it)
-        })
+        clubViewModel.clubSummaryList.observe(viewLifecycleOwner) {
+            binding.recyclerView.adapter = ClubAdapter(requireContext(), it)
+        }
 
         binding.addClubInfoButton.setOnClickListener {
-
+            clubViewModel.addClubSummary()
         }
     }
 
