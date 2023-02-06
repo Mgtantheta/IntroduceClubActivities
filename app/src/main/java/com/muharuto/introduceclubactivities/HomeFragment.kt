@@ -20,7 +20,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         clubViewModel.clubSummaryList.observe(viewLifecycleOwner) {
             binding.recyclerView.adapter = ClubAdapter(requireContext(), it)
         }
-        
+
         binding.addClubInfoButton.setOnClickListener {
             clubViewModel.addClubSummary()
         }
