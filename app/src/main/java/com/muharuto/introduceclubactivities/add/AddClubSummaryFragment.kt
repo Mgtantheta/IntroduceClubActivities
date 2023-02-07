@@ -1,8 +1,9 @@
-package com.muharuto.introduceclubactivities
+package com.muharuto.introduceclubactivities.add
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.databinding.FragementAddClubSummaryBinding
 
 class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
@@ -15,7 +16,7 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
     }
 
     override fun onDestroyView() {
-        fragmentAddClubSummaryBinding = null
         super.onDestroyView()
+        fragmentAddClubSummaryBinding = null
     }
 }
