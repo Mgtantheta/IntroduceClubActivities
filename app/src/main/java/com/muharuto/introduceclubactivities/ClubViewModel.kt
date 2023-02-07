@@ -3,6 +3,8 @@ package com.muharuto.introduceclubactivities
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
+import com.muharuto.introduceclubactivities.data.ClubSummary
 
 class ClubViewModel : ViewModel() {
     //Mutableは書き換えられるから書き換えられないようにする
@@ -29,15 +31,15 @@ class ClubViewModel : ViewModel() {
             )
         )
     }
-
-    fun addClubSummary() {
-         _clubSummaryList.value = _clubSummaryList.value?.plus(
-            ClubSummary(
-                id = 1,
-                image = R.drawable.sample,
-                name = "クライミング",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.FRIDAY)
-            )
-        )
-    }
+// FIXME: 後で消す
+//    fun addClubSummary() {
+//         _clubSummaryList.value = _clubSummaryList.value?.plus(
+//            ClubSummary(
+//                id = 1,
+//                image = R.drawable.sample,
+//                name = "クライミング",
+//                activityDayOfWeek = listOf(ActivityDayOfWeek.FRIDAY)
+//            )
+//        )
+//    }
 }

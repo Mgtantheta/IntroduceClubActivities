@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.muharuto.introduceclubactivities.HomeFragment"
+        android:name="com.muharuto.introduceclubactivities.home.HomeFragment"
         android:label="fragment_home">
 
         <action
@@ -17,6 +17,6 @@
     </fragment>
     <fragment
         android:id="@+id/addClubSummaryFragment"
-        android:name="com.muharuto.introduceclubactivities.AddClubSummaryFragment"
+        android:name="com.muharuto.introduceclubactivities.add.AddClubSummaryFragment"
         android:label="AddClubSummaryFragment"/>
 </navigation>

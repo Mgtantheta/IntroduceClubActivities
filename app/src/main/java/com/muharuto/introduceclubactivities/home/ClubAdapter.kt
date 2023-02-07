@@ -1,10 +1,12 @@
-package com.muharuto.introduceclubactivities
+package com.muharuto.introduceclubactivities.home
 
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.muharuto.introduceclubactivities.data.ClubSummary
+import com.muharuto.introduceclubactivities.R
 
 class ClubAdapter(private val context: Context, private val dataset: List<ClubSummary>) : RecyclerView.Adapter<ClubViewHolder>() {
     override fun onCreateViewHolder(
