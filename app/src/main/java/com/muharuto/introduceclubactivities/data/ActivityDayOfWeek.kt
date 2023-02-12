@@ -1,4 +1,4 @@
-package com.muharuto.introduceclubactivities
+package com.muharuto.introduceclubactivities.data
 
 enum class ActivityDayOfWeek(name: String) {
     SUNDAY("日"),
