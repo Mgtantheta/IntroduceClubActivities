@@ -20,8 +20,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val binding = FragmentHomeBinding.bind(view)
         fragmentHomeBinding = binding
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val listener = object : ClubAdapter.OnItemClickListener {
+            override fun onItemClick() {
+                findNavController().navigate(R.id.action_homeFragment_to_clubDetailFragment)
+            }
+        }
         clubViewModel.clubSummaryList.observe(viewLifecycleOwner) {
-            binding.recyclerView.adapter = ClubAdapter(requireContext(), it)
+            binding.recyclerView.adapter = ClubAdapter(requireContext(), it, listener)
         }
 
         binding.addClubInfoButton.setOnClickListener {
@@ -30,7 +35,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onDestroyView() {
-        fragmentHomeBinding = null
         super.onDestroyView()
+        fragmentHomeBinding = null
     }
 }

@@ -18,4 +18,5 @@
     <string name="friday">金</string>
     <string name="saturday">土</string>
     <string name="sunday">日</string>
+    <string name="sample_club_title">sample club</string>
 </resources>
