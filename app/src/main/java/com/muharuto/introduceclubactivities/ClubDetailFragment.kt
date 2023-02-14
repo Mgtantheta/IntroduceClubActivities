@@ -40,7 +40,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
             setController(adapter)
             layoutManager = LinearLayoutManager(
                 requireContext(),
-                RecyclerView.HORIZONTAL,
+                RecyclerView.VERTICAL,
                 false
             )
         }
