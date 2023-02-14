@@ -1,15 +1,16 @@
 package com.muharuto.introduceclubactivities
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
 import com.muharuto.introduceclubactivities.data.ClubSummary
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 
-class ClubViewModel : ViewModel() {
+class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     //Mutableは書き換えられるから書き換えられないようにする
     private val _clubSummaryList = MutableLiveData<List<ClubSummary>>()
     val clubSummaryList: LiveData<List<ClubSummary>> = _clubSummaryList
+    fun fullClubSummary(): List<ClubSummaryData> = clubSummaryDao.getAll()
 
     init {
         _clubSummaryList.value = listOf(
@@ -43,3 +44,16 @@ class ClubViewModel : ViewModel() {
 //        )
 //    }
 }
+
+class ClubViewModelFactory(
+    private val clubSummaryDao: ClubSummaryDao
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ClubViewModel::class.java)){
+            @Suppress("UNCHECKED_CAST")
+            return ClubViewModel(clubSummaryDao) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
