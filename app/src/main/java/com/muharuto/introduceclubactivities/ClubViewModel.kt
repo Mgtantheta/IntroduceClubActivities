@@ -10,7 +10,8 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     //Mutableは書き換えられるから書き換えられないようにする
     private val _clubSummaryList = MutableLiveData<List<ClubSummary>>()
     val clubSummaryList: LiveData<List<ClubSummary>> = _clubSummaryList
-    fun fullClubSummary(): List<ClubSummaryData> = clubSummaryDao.getAll()
+// FIXME: 後で消す
+//  fun fullClubSummary(): LiveData<List<ClubSummaryData>> = clubSummaryDao.getAll()
 
     init {
         _clubSummaryList.value = listOf(
@@ -44,16 +45,16 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
 //        )
 //    }
 }
-
-class ClubViewModelFactory(
-    private val clubSummaryDao: ClubSummaryDao
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ClubViewModel::class.java)){
-            @Suppress("UNCHECKED_CAST")
-            return ClubViewModel(clubSummaryDao) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
+//
+//class ClubViewModelFactory(
+//    private val clubSummaryDao: ClubSummaryDao
+//) : ViewModelProvider.Factory {
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(ClubViewModel::class.java)){
+//            @Suppress("UNCHECKED_CAST")
+//            return ClubViewModel(clubSummaryDao) as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}
 

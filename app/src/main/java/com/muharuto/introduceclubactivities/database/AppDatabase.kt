@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 
-@Database(entities = arrayOf(ClubSummaryData::class), version = 1)
+@Database(entities = [ClubSummaryData::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun clubSummaryDao() : ClubSummaryDao
     companion object {
