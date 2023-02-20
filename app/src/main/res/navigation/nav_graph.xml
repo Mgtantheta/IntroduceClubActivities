@@ -24,6 +24,6 @@
         android:label="AddClubSummaryFragment"/>
     <fragment
         android:id="@+id/clubDetailFragment"
-        android:name="com.muharuto.introduceclubactivities.ClubDetailFragment"
+        android:name="com.muharuto.introduceclubactivities.detail.ClubDetailFragment"
         android:label="ClubDetailFragment" />
 </navigation>

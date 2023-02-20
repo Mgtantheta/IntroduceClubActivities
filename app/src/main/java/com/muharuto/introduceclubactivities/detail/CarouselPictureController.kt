@@ -1,8 +1,9 @@
-package com.muharuto.introduceclubactivities
+package com.muharuto.introduceclubactivities.detail
 
 import carousel
 import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.TypedEpoxyController
+import com.muharuto.introduceclubactivities.EpoxyLayoutCarouselImageBindingModel_
 import com.muharuto.introduceclubactivities.data.ClubSummary
 import withModelsFrom
 
