@@ -19,4 +19,10 @@
     <string name="saturday">土</string>
     <string name="sunday">日</string>
     <string name="sample_club_title">sample club</string>
+    <string name="tech">東北Tech道場・盛岡道場</string>
+    <string name="tech_message">Tech道場とは1ヶ月に2回アプリ開発を行っているコミュニティです。みんな来てね!</string>
+    <string name="activity_sunday">活動日:日曜日</string>
+    <string name="activity_place_innovation_center">活動場所: 滝沢イノベーションセンター</string>
+    <string name="representative_sato">代表者: 佐藤佑哉</string>
+    <string name="student_number_g031t071">g031t071</string>
 </resources>
