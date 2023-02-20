@@ -5,10 +5,10 @@ import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.muharuto.introduceclubactivities.data.ClubSummary
 import com.muharuto.introduceclubactivities.R
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 
-class ClubAdapter(private val context: Context, private val dataset: List<ClubSummary>) : RecyclerView.Adapter<ClubViewHolder>() {
+class ClubAdapter(private val context: Context, private val dataset: List<ClubSummaryData>) : RecyclerView.Adapter<ClubViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,11 +24,9 @@ class ClubAdapter(private val context: Context, private val dataset: List<ClubSu
         position: Int
     ) {
         val item = dataset[position]
-        holder.clubNameView.text = item.name
-        holder.clubImageView.setImageBitmap(BitmapFactory.decodeResource(context.resources, item.image))
-        holder.clubActivityDayOfWeekView.text = item.activityDayOfWeek.joinToString(",") {
-            it.name
-        }
+        holder.clubNameView.text = item.club_name
+        holder.clubImageView.setImageBitmap(BitmapFactory.decodeResource(context.resources, item.club_image))
+        holder.clubActivityDayOfWeekView.text = item.activityDayOfWeek
     }
 
     //リストの長さを返す
