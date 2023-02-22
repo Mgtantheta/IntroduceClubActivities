@@ -1,7 +1,6 @@
 package com.muharuto.introduceclubactivities.database.clubsummarydata
 
 import androidx.annotation.DrawableRes
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -9,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface ClubSummaryDao {
     @Query("SELECT * FROM clubSummaryDB")
-    fun getAll(): MutableLiveData<List<ClubSummaryData>>
+    fun getAll(): List<ClubSummaryData>
 
     @Insert
     fun insert(
