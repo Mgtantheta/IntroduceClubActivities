@@ -82,6 +82,5 @@
         app:layout_constraintTop_toBottomOf="@id/activity_place"
         tools:ignore="RtlSymmetry" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
