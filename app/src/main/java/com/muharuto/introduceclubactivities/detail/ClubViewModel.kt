@@ -1,8 +1,9 @@
-package com.muharuto.introduceclubactivities
+package com.muharuto.introduceclubactivities.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
 import com.muharuto.introduceclubactivities.data.ClubSummary
 
@@ -16,8 +17,8 @@ class ClubViewModel : ViewModel() {
             ClubSummary(
                 id = 1,
                 image = R.drawable.sample,
-                name = "クライミング",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.FRIDAY, ActivityDayOfWeek.SUNDAY)
+                name = "東北Tech道場",
+                activityDayOfWeek = listOf(ActivityDayOfWeek.SUNDAY)
             ), ClubSummary(
                 id = 2,
                 image = R.drawable.sample,
