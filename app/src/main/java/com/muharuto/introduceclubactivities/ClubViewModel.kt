@@ -10,7 +10,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     private val _clubSummaryList = MutableLiveData<List<ClubSummaryData>>()
     val clubSummaryList: LiveData<List<ClubSummaryData>> = _clubSummaryList
 
-  fun fullClubSummary(): LiveData<List<ClubSummaryData>> = clubSummaryDao.getAll()
+  fun fullClubSummary(): List<ClubSummaryData> = clubSummaryDao.getAll()
 
     init {
         _clubSummaryList.value = listOf(
