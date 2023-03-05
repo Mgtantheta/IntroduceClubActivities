@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.muharuto.introduceclubactivities.ClubSummaryApplication
 import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 import com.muharuto.introduceclubactivities.databinding.FragementAddClubSummaryBinding
@@ -29,9 +28,13 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
                 clubRepresentativeId = "g031t999"
             )
 
-            ClubSummaryApplication().database.clubSummaryDao().insert(
-                clubSummaryData
-            )
+//            ClubSummaryApplication().database.clubSummaryDao().insert(
+//                clubSummaryData
+//            )
+        }
+
+        binding.cancelButton.setOnClickListener {
+            findNavController().navigate(R.id.action_addClubSummaryFragment_to_homeFragment)
         }
     }
 
