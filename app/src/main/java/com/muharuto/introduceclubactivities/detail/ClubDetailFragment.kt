@@ -17,19 +17,6 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
         fragmentClubDetailBinding = binding
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = CarouselPictureController()
-//        adapter.setData(
-//            listOf(
-//                ClubSummary(
-//                    id = 1,
-//                    image = R.drawable.sample,
-//                    name = "東北Tech道場・盛岡道場",
-//                    representative = "g031t071",
-//                    activityDayOfWeek = listOf(ActivityDayOfWeek.SUNDAY),
-//                    sentence = "日曜日に活動してます",
-//                    representativeId = "佐藤佑哉"
-//                )
-//            )
-//        )
         binding.recyclerView.apply {
             setController(adapter)
             layoutManager = LinearLayoutManager(
