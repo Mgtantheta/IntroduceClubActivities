@@ -13,7 +13,10 @@
             android:id="@+id/action_homeFragment_to_addClubSummaryFragment"
             app:destination="@id/addClubSummaryFragment"
             app:enterAnim="@anim/slide_from_bottom"
-            app:popExitAnim="@anim/slide_from_top"/>
+            app:popExitAnim="@anim/slide_from_top" />
+        <action
+            android:id="@+id/action_homeFragment_to_clubDetailFragment"
+            app:destination="@id/clubDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/addClubSummaryFragment"
@@ -23,4 +26,8 @@
             android:id="@+id/action_addClubSummaryFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/clubDetailFragment"
+        android:name="com.muharuto.introduceclubactivities.detail.ClubDetailFragment"
+        android:label="ClubDetailFragment" />
 </navigation>

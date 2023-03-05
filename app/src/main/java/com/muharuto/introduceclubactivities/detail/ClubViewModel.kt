@@ -1,41 +1,31 @@
-package com.muharuto.introduceclubactivities
+package com.muharuto.introduceclubactivities.detail
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
 import com.muharuto.introduceclubactivities.data.ClubSummary
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
 
 class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
-    //Mutableは書き換えられるから書き換えられないようにする
     private val _clubSummaryList = MutableLiveData<List<ClubSummary>>()
     val clubSummaryList: LiveData<List<ClubSummary>> = _clubSummaryList
-
-//  fun fullClubSummary(): List<ClubSummary> = clubSummaryDao.getAll()
 
     init {
         _clubSummaryList.value = listOf(
             ClubSummary(
                 id = 1,
                 image = R.drawable.sample,
-                name = "クライミング",
-                representative = "村木春友",
-                sentence = "金曜の18時からやってます！壁登ります！",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.FRIDAY),
-                representativeId = "g031t156"
+                name = "東北テック道場",
+                representative = "佐藤佑哉",
+                sentence = "日曜日やってます！",
+                activityDayOfWeek = listOf(ActivityDayOfWeek.SUNDAY),
+                representativeId = "g031t999"
             )
         )
     }
-// FIXME: 後で消す
-//    fun addClubSummary() {
-//         _clubSummaryList.value = _clubSummaryList.value?.plus(
-//            ClubSummary(
-//                id = 1,
-//                image = R.drawable.sample,
-//                name = "クライミング",
-//                activityDayOfWeek = listOf(ActivityDayOfWeek.FRIDAY)
-//            )
-//        )
-//    }
 }
 
 class ClubViewModelFactory(

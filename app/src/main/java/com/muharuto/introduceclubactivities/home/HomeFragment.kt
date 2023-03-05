@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.muharuto.introduceclubactivities.ClubViewModel
-import com.muharuto.introduceclubactivities.ClubViewModelFactory
-import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.ClubSummaryApplication
+import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.databinding.FragmentHomeBinding
+import com.muharuto.introduceclubactivities.detail.ClubViewModel
+import com.muharuto.introduceclubactivities.detail.ClubViewModelFactory
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private var fragmentHomeBinding: FragmentHomeBinding? = null
@@ -26,8 +26,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val binding = FragmentHomeBinding.bind(view)
         fragmentHomeBinding = binding
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val listener = object : ClubAdapter.OnItemClickListener {
+            override fun onItemClick() {
+                findNavController().navigate(R.id.action_homeFragment_to_clubDetailFragment)
+            }
+        }
         clubViewModel.clubSummaryList.observe(viewLifecycleOwner) {
-            binding.recyclerView.adapter = ClubAdapter(requireContext(), it)
+            binding.recyclerView.adapter = ClubAdapter(requireContext(), it, listener)
         }
 
         binding.addClubInfoButton.setOnClickListener {
@@ -36,7 +41,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onDestroyView() {
-        fragmentHomeBinding = null
         super.onDestroyView()
+        fragmentHomeBinding = null
     }
 }

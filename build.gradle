@@ -6,5 +6,6 @@ plugins {
 }
 
 ext {
+    epoxyVersion = "5.1.1"
     roomVersion = "2.5.0"
 }
