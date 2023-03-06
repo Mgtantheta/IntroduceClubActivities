@@ -8,4 +8,6 @@ plugins {
 ext {
     epoxyVersion = "5.1.1"
     roomVersion = "2.5.0"
+    lifecycleVersion = "2.5.1"
+    navVersion = "2.5.3"
 }

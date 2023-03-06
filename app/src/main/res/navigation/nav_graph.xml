@@ -29,5 +29,11 @@
     <fragment
         android:id="@+id/clubDetailFragment"
         android:name="com.muharuto.introduceclubactivities.detail.ClubDetailFragment"
-        android:label="ClubDetailFragment" />
+        android:label="ClubDetailFragment">
+        <argument
+            android:name="clubDetailFragmentArgs"
+            app:argType="string"/>
+    </fragment>
+
+
 </navigation>
