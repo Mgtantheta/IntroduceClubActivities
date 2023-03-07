@@ -1,6 +1,7 @@
 package com.muharuto.introduceclubactivities.database
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -19,11 +20,11 @@ abstract class AppDatabase : RoomDatabase() {
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context,
+                    context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .createFromAsset("database/club_summary_database.db")
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
 

@@ -13,7 +13,7 @@ import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummary
 import com.muharuto.introduceclubactivities.databinding.FragmentClubDetailBinding
 
 class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
-    private val navigationArgs: ClubDetailFragmentArgs by navArgs()
+//    private val navigationArgs: ClubDetailFragmentArgs by navArgs()
 
 //    private var _fragmentClubDetailBinding: FragmentClubDetailBinding? = null
 //    private val fragmentClubDetailBinding get() = _fragmentClubDetailBinding!!
@@ -21,7 +21,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     private var _binding: FragmentClubDetailBinding? = null
     private val binding get() = _binding!!
 
-//    lateinit var clubSummaryData: ClubSummaryData
+    lateinit var clubSummaryData: ClubSummaryData
 
     private val viewModel: ClubViewModel by activityViewModels {
         ClubViewModelFactory(
@@ -42,7 +42,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id = navigationArgs.clubId
+//        val id = navigationArgs.clubId
 
         val binding = FragmentClubDetailBinding.bind(view)
         _binding = binding
