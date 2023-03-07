@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 
-@Entity(tableName = "clubSummaryDB")
+@Entity(tableName = "clubSummaryData")
 data class ClubSummaryData(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     // 実装できたら後で写真は追加する
