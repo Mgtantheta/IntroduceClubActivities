@@ -88,7 +88,6 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         return true
     }
 
-
     fun retrieveItem(id: Int): LiveData<ClubSummaryData> {
         return clubSummaryDao.getClub(id).asLiveData()
     }
