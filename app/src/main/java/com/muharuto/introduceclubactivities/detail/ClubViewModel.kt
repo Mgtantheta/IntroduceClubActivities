@@ -1,46 +1,108 @@
 package com.muharuto.introduceclubactivities.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
-import com.muharuto.introduceclubactivities.data.ClubSummary
+import com.muharuto.introduceclubactivities.data.HomeClubSummary
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ClubViewModel : ViewModel() {
-    //Mutableは書き換えられるから書き換えられないようにする
-    private val _clubSummaryList = MutableLiveData<List<ClubSummary>>()
-    val clubSummaryList: LiveData<List<ClubSummary>> = _clubSummaryList
+class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
+    private val _clubSummaryList = MutableLiveData<List<HomeClubSummary>>()
+    val clubSummaryList: LiveData<List<HomeClubSummary>> = _clubSummaryList
 
     init {
-        _clubSummaryList.value = listOf(
-            ClubSummary(
-                id = 1,
-                image = R.drawable.sample,
-                name = "東北Tech道場",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.SUNDAY)
-            ), ClubSummary(
-                id = 2,
-                image = R.drawable.sample,
-                name = "バドミントン",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.MONDAY, ActivityDayOfWeek.TUESDAY)
-            ), ClubSummary(
-                id = 3,
-                image = R.drawable.sample,
-                name = "サッカー",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.THURSDAY)
-            )
+        getAllClubs()
+    }
+
+    private fun insertClub(clubSummaryData: ClubSummaryData) {
+        viewModelScope.launch {
+            clubSummaryDao.insert(clubSummaryData)
+        }
+    }
+
+    private fun getNewClubEntry(
+        clubName: String,
+        clubRepresentative: String,
+        clubSentence: String,
+        clubActivityDayOfWeek: String,
+        representativeId: String,
+        activityPlace: String
+    ): ClubSummaryData {
+        return ClubSummaryData(
+            clubName = clubName,
+            clubRepresentative = clubRepresentative,
+            clubSentence = clubSentence,
+            clubActivityDay = clubActivityDayOfWeek,
+            clubRepresentativeId = representativeId,
+            activityPlace = activityPlace
         )
     }
-// FIXME: 後で消す
-//    fun addClubSummary() {
-//         _clubSummaryList.value = _clubSummaryList.value?.plus(
-//            ClubSummary(
-//                id = 1,
-//                image = R.drawable.sample,
-//                name = "クライミング",
-//                activityDayOfWeek = listOf(ActivityDayOfWeek.FRIDAY)
-//            )
-//        )
-//    }
+
+    fun addNewClub(
+        clubName: String,
+        clubRepresentative: String,
+        clubSentence: String,
+        clubActivityDayOfWeek: String,
+        representativeId: String,
+        activityPlace: String
+    ) {
+        val newClub = getNewClubEntry(
+            clubName,
+            clubRepresentative,
+            clubSentence,
+            clubActivityDayOfWeek,
+            representativeId,
+            activityPlace
+        )
+        insertClub(newClub)
+    }
+
+    fun isEntryValid(
+        clubName: String,
+        clubRepresentative: String,
+        clubSentence: String,
+        clubActivityDayOfWeek: String,
+        representativeId: String,
+        activityPlace: String
+    ): Boolean {
+        if (clubName.isBlank() || clubRepresentative.isBlank() || clubSentence.isBlank() || clubActivityDayOfWeek.isBlank() || representativeId.isBlank() || activityPlace.isBlank()) {
+            return false
+        }
+        return true
+    }
+
+    private fun getAllClubs() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _clubSummaryList.postValue(clubSummaryDao.fetchClubs().map {
+                HomeClubSummary(
+                    id = it.id,
+                    image = R.drawable.sample,
+                    name = it.clubName,
+                    representative = it.clubRepresentative,
+                    sentence = it.clubSentence,
+                    activityDayOfWeek = listOf(
+                        ActivityDayOfWeek.FRIDAY, ActivityDayOfWeek.SUNDAY
+                    ),
+                    place = it.activityPlace,
+                    representativeId = it.clubRepresentativeId
+                )
+            })
+        }
+    }
+
 }
+
+class ClubViewModelFactory(
+    private val clubSummaryDao: ClubSummaryDao
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ClubViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST") return ClubViewModel(clubSummaryDao) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
