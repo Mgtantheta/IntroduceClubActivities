@@ -15,7 +15,7 @@ import com.muharuto.introduceclubactivities.detail.ClubViewModelFactory
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private var fragmentHomeBinding: FragmentHomeBinding? = null
 
-    private val clubViewModel by activityViewModels<ClubViewModel>() {
+    private val clubViewModel by activityViewModels<ClubViewModel> {
         ClubViewModelFactory(
             (activity?.application as ClubSummaryApplication).database.clubSummaryDao()
         )

@@ -3,27 +3,18 @@ package com.muharuto.introduceclubactivities.detail
 import androidx.lifecycle.*
 import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
-import com.muharuto.introduceclubactivities.data.ClubSummary
+import com.muharuto.introduceclubactivities.data.HomeClubSummary
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
-    private val _clubSummaryList = MutableLiveData<List<ClubSummary>>()
-    val clubSummaryList: LiveData<List<ClubSummary>> = _clubSummaryList
+    private val _clubSummaryList = MutableLiveData<List<HomeClubSummary>>()
+    val clubSummaryList: LiveData<List<HomeClubSummary>> = _clubSummaryList
 
     init {
-        _clubSummaryList.value = listOf(
-            ClubSummary(
-                id = 1,
-                image = R.drawable.sample,
-                name = "東北テック道場",
-                representative = "佐藤佑哉",
-                sentence = "日曜日やってます！",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.SUNDAY),
-                representativeId = "g031t999"
-            )
-        )
+        getAllClubs()
     }
 
     private fun insertClub(clubSummaryData: ClubSummaryData) {
@@ -77,21 +68,30 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         representativeId: String,
         activityPlace: String
     ): Boolean {
-        if (clubName.isBlank() ||
-            clubRepresentative.isBlank() ||
-            clubSentence.isBlank() ||
-            clubActivityDayOfWeek.isBlank() ||
-            representativeId.isBlank() ||
-            activityPlace.isBlank()) {
+        if (clubName.isBlank() || clubRepresentative.isBlank() || clubSentence.isBlank() || clubActivityDayOfWeek.isBlank() || representativeId.isBlank() || activityPlace.isBlank()) {
             return false
         }
         return true
     }
 
-    fun retrieveItem(id: Int): LiveData<ClubSummaryData> {
-        return clubSummaryDao.getClub(id).asLiveData()
+    private fun getAllClubs() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _clubSummaryList.postValue(clubSummaryDao.fetchClubs().map {
+                HomeClubSummary(
+                    id = it.id,
+                    image = R.drawable.sample,
+                    name = it.clubName,
+                    representative = it.clubRepresentative,
+                    sentence = it.clubSentence,
+                    activityDayOfWeek = listOf(
+                        ActivityDayOfWeek.FRIDAY, ActivityDayOfWeek.SUNDAY
+                    ),
+                    place = it.activityPlace,
+                    representativeId = it.clubRepresentativeId
+                )
+            })
+        }
     }
-
 
 }
 
