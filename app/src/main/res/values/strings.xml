@@ -28,4 +28,6 @@
     <string name="club_summary_image">club__image</string>
     <string name="string_representative_id_input_title">representative id</string>
     <string name="hint_representative_id">学籍番号の入力</string>
+    <string name="club_sentence_input_title">club_sentence</string>
+    <string name="hint_add_sentence">説明文を入力</string>
 </resources>
