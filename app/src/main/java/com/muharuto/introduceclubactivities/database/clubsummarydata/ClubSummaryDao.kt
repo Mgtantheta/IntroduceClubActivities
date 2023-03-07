@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ClubSummaryDao {
 
-    @Query("SELECT * FROM clubSummaryDB ORDER BY club_name")
+    @Query("SELECT * FROM clubSummaryData ORDER BY club_name")
     fun getItems(): Flow<List<ClubSummaryData>>
 
-    @Query("SELECT * FROM clubSummaryDB WHERE id = :id")
+    @Query("SELECT * FROM clubSummaryData WHERE id = :id")
     fun getClub(id: Int): Flow<ClubSummaryData>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -21,6 +21,4 @@ interface ClubSummaryDao {
 
     @Delete
     suspend fun delete(clubSummaryData: ClubSummaryData)
-
-    // TODO: UpdateとDeleteを後で作成
 }
