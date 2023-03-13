@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.muharuto.introduceclubactivities.ClubSummaryApplication
@@ -13,10 +12,6 @@ import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummary
 import com.muharuto.introduceclubactivities.databinding.FragmentClubDetailBinding
 
 class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
-//    private val navigationArgs: ClubDetailFragmentArgs by navArgs()
-
-//    private var _fragmentClubDetailBinding: FragmentClubDetailBinding? = null
-//    private val fragmentClubDetailBinding get() = _fragmentClubDetailBinding!!
 
     private var _binding: FragmentClubDetailBinding? = null
     private val binding get() = _binding!!
@@ -42,7 +37,6 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val id = navigationArgs.clubId
 
         val binding = FragmentClubDetailBinding.bind(view)
         _binding = binding

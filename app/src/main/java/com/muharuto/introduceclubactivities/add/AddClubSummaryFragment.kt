@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.muharuto.introduceclubactivities.ClubSummaryApplication
 import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
@@ -16,12 +15,10 @@ import com.muharuto.introduceclubactivities.detail.ClubViewModelFactory
 
 class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
 
-    private val navigationArgs: AddClubSummaryFragmentArgs by navArgs()
     lateinit var clubSummaryData: ClubSummaryData
 
-
-    private var _fragmentAddClubSummaryBinding: FragementAddClubSummaryBinding? = null
-    private val fragmentAddClubSummaryBinding get() = _fragmentAddClubSummaryBinding!!
+    private var _binding: FragementAddClubSummaryBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: ClubViewModel by activityViewModels {
         ClubViewModelFactory(
@@ -32,19 +29,7 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragementAddClubSummaryBinding.bind(view)
-        _fragmentAddClubSummaryBinding = binding
-
-//        val id = navigationArgs.clubId
-//        if (id > 0) {
-//            viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) { selectedClub ->
-//                clubSummaryData = selectedClub
-//                bind(clubSummaryData)
-//            }
-//        } else {
-//            binding.saveButton.setOnClickListener {
-//                addNewClub()
-//            }
-//        }
+        _binding = binding
 
         binding.saveButton.setOnClickListener {
             addNewClub()
@@ -57,24 +42,24 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
 
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
-            fragmentAddClubSummaryBinding.clubNameTextBox.text.toString(),
-            fragmentAddClubSummaryBinding.clubNameTextBox.text.toString(),
-            fragmentAddClubSummaryBinding.representativeNameTextBox.toString(),
-            fragmentAddClubSummaryBinding.activityDateCheckbox.toString(),
-            fragmentAddClubSummaryBinding.activityPlaceTextBox.toString(),
-            fragmentAddClubSummaryBinding.representativeId.text.toString()
+            binding.clubNameTextBox.text.toString(),
+            binding.clubNameTextBox.text.toString(),
+            binding.representativeNameTextBox.toString(),
+            binding.activityDateCheckbox.toString(),
+            binding.activityPlaceTextBox.toString(),
+            binding.representativeId.text.toString()
         )
     }
 
     private fun addNewClub() {
         if (isEntryValid()) {
             viewModel.addNewClub(
-                fragmentAddClubSummaryBinding.clubNameTextBox.text.toString(),
-                fragmentAddClubSummaryBinding.representativeNameTextBox.text.toString(),
-                fragmentAddClubSummaryBinding.clubSentenceTextBox.text.toString(),
-                fragmentAddClubSummaryBinding.activityDateCheckbox.toString(),
-                fragmentAddClubSummaryBinding.representativeIdTextBox.text.toString(),
-                fragmentAddClubSummaryBinding.activityPlaceTextBox.text.toString()
+                binding.clubNameTextBox.text.toString(),
+                binding.representativeNameTextBox.text.toString(),
+                binding.clubSentenceTextBox.text.toString(),
+                binding.activityDateCheckbox.toString(),
+                binding.representativeIdTextBox.text.toString(),
+                binding.activityPlaceTextBox.text.toString()
             )
             val action =
                 AddClubSummaryFragmentDirections.actionAddClubSummaryFragmentToHomeFragment()
@@ -83,7 +68,7 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
     }
 
     private fun bind(clubSummaryData: ClubSummaryData) {
-        fragmentAddClubSummaryBinding.apply {
+        binding.apply {
             clubNameTextBox.setText(clubSummaryData.clubName, TextView.BufferType.SPANNABLE)
             representativeName.setText(
                 clubSummaryData.clubRepresentative,
@@ -101,6 +86,6 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _fragmentAddClubSummaryBinding = null
+        _binding = null
     }
 }

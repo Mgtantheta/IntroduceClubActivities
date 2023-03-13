@@ -23,7 +23,6 @@ class ClubAdapter(
         )
     )
 
-    //ViewHolderにデータの紐付け
     override fun onBindViewHolder(
         holder: ClubViewHolder, position: Int
     ) {
@@ -31,10 +30,8 @@ class ClubAdapter(
         holder.bind(item, context, listener)
     }
 
-    //リストの長さを返す
     override fun getItemCount() = dataset.size
 
-    //interface clickListenerを実装
     interface OnItemClickListener {
         fun onItemClick()
     }
