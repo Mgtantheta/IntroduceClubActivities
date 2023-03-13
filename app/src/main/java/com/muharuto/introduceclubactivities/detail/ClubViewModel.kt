@@ -77,12 +77,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         representativeId: String,
         activityPlace: String
     ): Boolean {
-        if (clubName.isBlank() ||
-            clubRepresentative.isBlank() ||
-            clubSentence.isBlank() ||
-            clubActivityDayOfWeek.isBlank() ||
-            representativeId.isBlank() ||
-            activityPlace.isBlank()) {
+        if (clubName.isBlank() || clubRepresentative.isBlank() || clubSentence.isBlank() || clubActivityDayOfWeek.isBlank() || representativeId.isBlank() || activityPlace.isBlank()) {
             return false
         }
         return true
@@ -91,7 +86,6 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     fun retrieveItem(id: Int): LiveData<ClubSummaryData> {
         return clubSummaryDao.getClub(id).asLiveData()
     }
-
 
 }
 
