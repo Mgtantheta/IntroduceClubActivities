@@ -25,13 +25,6 @@
         <action
             android:id="@+id/action_addClubSummaryFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <argument
-            android:name="club_id"
-            app:argType="integer"
-            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/clubDetailFragment"
