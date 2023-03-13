@@ -40,6 +40,11 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.clubNameTextBox.text.toString(),
@@ -82,10 +87,5 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
             activityDate.setText(clubSummaryData.clubActivityDay, TextView.BufferType.SPANNABLE)
             activityPlace.setText(clubSummaryData.activityPlace, TextView.BufferType.SPANNABLE)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
