@@ -36,6 +36,6 @@ class ClubAdapter(
 
     //interface clickListenerを実装
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(id: Int)
     }
 }

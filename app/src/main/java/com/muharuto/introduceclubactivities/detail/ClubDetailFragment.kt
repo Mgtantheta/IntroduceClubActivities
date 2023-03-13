@@ -1,9 +1,11 @@
 package com.muharuto.introduceclubactivities.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.muharuto.introduceclubactivities.ClubSummaryApplication
@@ -12,6 +14,7 @@ import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummary
 import com.muharuto.introduceclubactivities.databinding.FragmentClubDetailBinding
 
 class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
+    private val args: ClubDetailFragmentArgs by navArgs()
 
     private var _binding: FragmentClubDetailBinding? = null
     private val binding get() = _binding!!
@@ -37,7 +40,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
                 requireContext(), RecyclerView.VERTICAL, false
             )
         }
-
+        Log.d("args", args.clubId.toString())
     }
 
     override fun onDestroyView() {

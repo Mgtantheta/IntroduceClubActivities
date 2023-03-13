@@ -27,8 +27,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         fragmentHomeBinding = binding
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val listener = object : ClubAdapter.OnItemClickListener {
-            override fun onItemClick() {
-                findNavController().navigate(R.id.action_homeFragment_to_clubDetailFragment)
+            override fun onItemClick(id: Int) {
+                val action = HomeFragmentDirections.actionHomeFragmentToClubDetailFragment(id)
+                findNavController().navigate(action)
             }
         }
         clubViewModel.clubSummaryList.observe(viewLifecycleOwner) {

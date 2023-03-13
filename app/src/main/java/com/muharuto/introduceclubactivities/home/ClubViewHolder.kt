@@ -14,7 +14,7 @@ class ClubViewHolder(private val binding: ClubSummaryItemBinding) : RecyclerView
             it.name
         }
         binding.root.setOnClickListener {
-            onItemClickListener.onItemClick()
+            onItemClickListener.onItemClick(id = clubSummary.id)
         }
     }
 }
