@@ -28,6 +28,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val binding = FragmentClubDetailBinding.bind(view)
         _binding = binding
         val id = args.clubId
