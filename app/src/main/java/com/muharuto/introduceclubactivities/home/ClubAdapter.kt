@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.muharuto.introduceclubactivities.data.HomeClubSummary
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 import com.muharuto.introduceclubactivities.databinding.ClubSummaryItemBinding
 
 class ClubAdapter(
     private val context: Context,
-    private val dataset: List<HomeClubSummary>,
+    private val dataset: List<ClubSummaryData>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<ClubViewHolder>() {
     override fun onCreateViewHolder(

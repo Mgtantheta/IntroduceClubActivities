@@ -3,18 +3,17 @@ package com.muharuto.introduceclubactivities.home
 import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.recyclerview.widget.RecyclerView
-import com.muharuto.introduceclubactivities.data.HomeClubSummary
+import com.muharuto.introduceclubactivities.R
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 import com.muharuto.introduceclubactivities.databinding.ClubSummaryItemBinding
 
 class ClubViewHolder(private val binding: ClubSummaryItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(clubSummary: HomeClubSummary, context: Context, onItemClickListener: ClubAdapter.OnItemClickListener) {
-        binding.clubImage.setImageBitmap(BitmapFactory.decodeResource(context.resources, clubSummary.image))
-        binding.clubName.text = clubSummary.name
-        binding.activityDayOfWeek.text = clubSummary.activityDayOfWeek.joinToString(",") {
-            it.name
-        }
+    fun bind(clubSummaryData: ClubSummaryData, context: Context, onItemClickListener: ClubAdapter.OnItemClickListener) {
+        binding.clubImage.setImageBitmap(BitmapFactory.decodeResource(context.resources, R.drawable.sample))
+        binding.clubName.text = clubSummaryData.clubName
+        binding.activityDayOfWeek.text = clubSummaryData.clubActivityDay
         binding.root.setOnClickListener {
-            onItemClickListener.onItemClick(id = clubSummary.id)
+            onItemClickListener.onItemClick(id = clubSummaryData.id)
         }
     }
 }

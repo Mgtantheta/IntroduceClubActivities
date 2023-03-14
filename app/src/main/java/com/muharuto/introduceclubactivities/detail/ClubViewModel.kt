@@ -1,26 +1,17 @@
 package com.muharuto.introduceclubactivities.detail
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.muharuto.introduceclubactivities.R
-import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
-import com.muharuto.introduceclubactivities.data.HomeClubSummary
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
-    private val _clubSummaryList = MutableLiveData<List<HomeClubSummary>>()
-    val clubSummaryList: LiveData<List<HomeClubSummary>> = _clubSummaryList
 
-    init {
-        getAllClubs()
-    }
+    val clubSummaryList = clubSummaryDao.fetchClubs()
 
     private fun insertClub(clubSummaryData: ClubSummaryData) {
         viewModelScope.launch {
@@ -63,6 +54,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
             activityPlace
         )
         insertClub(newClub)
+
     }
 
     fun isEntryValid(
@@ -77,25 +69,6 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
             return false
         }
         return true
-    }
-
-    private fun getAllClubs() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _clubSummaryList.postValue(clubSummaryDao.fetchClubs().map {
-                HomeClubSummary(
-                    id = it.id,
-                    image = R.drawable.sample,
-                    name = it.clubName,
-                    representative = it.clubRepresentative,
-                    sentence = it.clubSentence,
-                    activityDayOfWeek = listOf(
-                        ActivityDayOfWeek.FRIDAY, ActivityDayOfWeek.SUNDAY
-                    ),
-                    place = it.activityPlace,
-                    representativeId = it.clubRepresentativeId
-                )
-            })
-        }
     }
 
     fun retrieveClub(id: Int): LiveData<ClubSummaryData> {
