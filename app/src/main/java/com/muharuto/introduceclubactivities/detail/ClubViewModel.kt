@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
@@ -95,6 +96,10 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
                 )
             })
         }
+    }
+
+    fun retrieveClub(id: Int): LiveData<ClubSummaryData> {
+        return clubSummaryDao.getClub(id).asLiveData()
     }
 
 }

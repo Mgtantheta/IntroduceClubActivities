@@ -1,7 +1,6 @@
 package com.muharuto.introduceclubactivities.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -29,9 +28,9 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val binding = FragmentClubDetailBinding.bind(view)
         _binding = binding
+        val id = args.clubId
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = CarouselPictureController()
         binding.recyclerView.apply {
@@ -40,7 +39,10 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
                 requireContext(), RecyclerView.VERTICAL, false
             )
         }
-        Log.d("args", args.clubId.toString())
+        viewModel.retrieveClub(id).observe(this.viewLifecycleOwner) { selectedClubId ->
+            clubSummaryData = selectedClubId
+            bind(clubSummaryData)
+        }
     }
 
     override fun onDestroyView() {
