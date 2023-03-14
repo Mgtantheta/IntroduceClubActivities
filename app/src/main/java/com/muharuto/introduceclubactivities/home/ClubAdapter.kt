@@ -13,17 +13,13 @@ class ClubAdapter(
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<ClubViewHolder>() {
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): ClubViewHolder = ClubViewHolder(
         ClubSummaryItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+            LayoutInflater.from(parent.context), parent, false
         )
     )
 
-    //ViewHolderにデータの紐付け
     override fun onBindViewHolder(
         holder: ClubViewHolder, position: Int
     ) {
@@ -31,10 +27,8 @@ class ClubAdapter(
         holder.bind(item, context, listener)
     }
 
-    //リストの長さを返す
     override fun getItemCount() = dataset.size
 
-    //interface clickListenerを実装
     interface OnItemClickListener {
         fun onItemClick(id: Int)
     }
