@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.muharuto.introduceclubactivities.ClubSummaryApplication
 import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
@@ -15,8 +14,8 @@ import com.muharuto.introduceclubactivities.detail.ClubViewModel
 import com.muharuto.introduceclubactivities.detail.ClubViewModelFactory
 
 class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
-
-    lateinit var clubSummaryData: ClubSummaryData
+// TODO: 後で使う
+//    lateinit var clubSummaryData: ClubSummaryData
 
     private var _binding: FragementAddClubSummaryBinding? = null
     private val binding get() = _binding!!
@@ -73,19 +72,20 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
         }
     }
 
-    private fun bind(clubSummaryData: ClubSummaryData) {
-        binding.apply {
-            clubNameTextBox.setText(clubSummaryData.clubName, TextView.BufferType.SPANNABLE)
-            representativeName.setText(
-                clubSummaryData.clubRepresentative, TextView.BufferType.SPANNABLE
-            )
-            clubSentenceTextBox.setText(clubSummaryData.clubSentence, TextView.BufferType.SPANNABLE)
-            representativeId.setText(
-                clubSummaryData.clubRepresentativeId, TextView.BufferType.SPANNABLE
-            )
-            activityDate.setText(clubSummaryData.clubActivityDay, TextView.BufferType.SPANNABLE)
-            activityPlace.setText(clubSummaryData.activityPlace, TextView.BufferType.SPANNABLE)
-        }
-    }
+// TODO: 後で使う
+//    private fun bind(clubSummaryData: ClubSummaryData) {
+//        binding.apply {
+//            clubNameTextBox.setText(clubSummaryData.clubName, TextView.BufferType.SPANNABLE)
+//            representativeName.setText(
+//                clubSummaryData.clubRepresentative, TextView.BufferType.SPANNABLE
+//            )
+//            clubSentenceTextBox.setText(clubSummaryData.clubSentence, TextView.BufferType.SPANNABLE)
+//            representativeId.setText(
+//                clubSummaryData.clubRepresentativeId, TextView.BufferType.SPANNABLE
+//            )
+//            activityDate.setText(clubSummaryData.clubActivityDay, TextView.BufferType.SPANNABLE)
+//            activityPlace.setText(clubSummaryData.activityPlace, TextView.BufferType.SPANNABLE)
+//        }
+//    }
 
 }
