@@ -6,47 +6,47 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/sample_club"
+        android:id="@+id/club_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="@string/tech"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/tech" />
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/club_description"
+        app:layout_constraintBottom_toTopOf="@id/club_sentence"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sample_club" />
+        app:layout_constraintTop_toBottomOf="@id/club_name" />
 
     <TextView
-        android:id="@+id/club_description"
+        android:id="@+id/club_sentence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:text="@string/tech_message"
-        app:layout_constraintBottom_toTopOf="@id/club_activity_date"
+        app:layout_constraintBottom_toTopOf="@id/club_activity_day"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/tech_message" />
 
     <TextView
-        android:id="@+id/club_activity_date"
+        android:id="@+id/club_activity_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:text="@string/activity_sunday"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/club_description"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintTop_toBottomOf="@id/club_sentence"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/activity_sunday" />
 
     <TextView
         android:id="@+id/activity_place"
@@ -54,33 +54,33 @@
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:text="@string/activity_place_innovation_center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/club_activity_date"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintTop_toBottomOf="@id/club_activity_day"
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/activity_place_innovation_center" />
 
     <TextView
-        android:id="@+id/activity_representatives"
+        android:id="@+id/club_representatives"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:text="@string/representative_sato"
-        app:layout_constraintEnd_toStartOf="@id/student_number"
+        app:layout_constraintEnd_toStartOf="@id/club_representative_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_place"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/representative_sato" />
 
     <TextView
-        android:id="@+id/student_number"
+        android:id="@+id/club_representative_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:text="@string/student_number_g031t071"
-        app:layout_constraintStart_toEndOf="@id/activity_representatives"
+        app:layout_constraintStart_toEndOf="@id/club_representatives"
         app:layout_constraintTop_toBottomOf="@id/activity_place"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/student_number_g031t071" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

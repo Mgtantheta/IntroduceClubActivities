@@ -116,14 +116,61 @@
                 app:layout_constraintTop_toBottomOf="@id/representative_name" />
 
             <TextView
+                android:id="@+id/club_sentence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/club_sentence_input_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/representative_name_text_box"
+                app:layout_constraintTop_toBottomOf="@id/representative_name_text_box" />
+
+            <EditText
+                android:id="@+id/club_sentence_text_box"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:autofillHints=""
+                android:hint="@string/hint_add_sentence"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/club_sentence"
+                app:layout_constraintTop_toBottomOf="@id/club_sentence" />
+
+            <TextView
+                android:id="@+id/representative_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/string_representative_id_input_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/club_sentence_text_box"
+                app:layout_constraintTop_toBottomOf="@id/club_sentence_text_box" />
+
+            <EditText
+                android:id="@+id/representative_id_text_box"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:autofillHints=""
+                android:hint="@string/hint_representative_id"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/representative_id"
+                app:layout_constraintTop_toBottomOf="@id/representative_id" />
+
+
+            <TextView
                 android:id="@+id/activity_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/activity_date_title"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/representative_name_text_box"
-                app:layout_constraintTop_toBottomOf="@id/representative_name_text_box" />
+                app:layout_constraintStart_toStartOf="@id/representative_id_text_box"
+                app:layout_constraintTop_toBottomOf="@id/representative_id_text_box" />
 
             <LinearLayout
                 android:id="@+id/activity_date_checkbox"
