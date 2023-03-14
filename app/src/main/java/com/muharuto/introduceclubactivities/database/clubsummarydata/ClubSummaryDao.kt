@@ -1,9 +1,15 @@
 package com.muharuto.introduceclubactivities.database.clubsummarydata
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
+// @TypeConverters(Converters::class)
 interface ClubSummaryDao {
 
     @Query("SELECT * FROM clubSummaryData ORDER BY club_name")
