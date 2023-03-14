@@ -12,8 +12,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ClubSummaryDao {
 
-    @Query("SELECT * FROM clubSummaryData ORDER BY club_name")
-    fun getItems(): Flow<List<ClubSummaryData>>
+//TODO: 後で使う
+//    @Query("SELECT * FROM clubSummaryData ORDER BY club_name")
+//    fun getItems(): Flow<List<ClubSummaryData>>
 
     @Query("SELECT * FROM clubSummaryData WHERE id = :id")
     fun getClub(id: Int): Flow<ClubSummaryData>
