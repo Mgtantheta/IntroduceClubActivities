@@ -20,6 +20,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     }
 
     private fun getNewClubEntry(
+        clubImage: ByteArray,
         clubName: String,
         clubRepresentative: String,
         clubSentence: String,
@@ -28,6 +29,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         activityPlace: String
     ): ClubSummaryData {
         return ClubSummaryData(
+            clubImage = clubImage,
             clubName = clubName,
             clubRepresentative = clubRepresentative,
             clubSentence = clubSentence,
@@ -38,6 +40,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     }
 
     fun addNewClub(
+        clubImage: ByteArray,
         clubName: String,
         clubRepresentative: String,
         clubSentence: String,
@@ -46,6 +49,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         activityPlace: String
     ) {
         val newClub = getNewClubEntry(
+            clubImage = clubImage,
             clubName = clubName,
             clubRepresentative = clubRepresentative,
             clubSentence = clubSentence,
