@@ -20,7 +20,6 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     private var _binding: FragmentClubDetailBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var clubSummaryData: ClubSummaryData
     private val carouselController = CarouselPictureController()
 
     private val viewModel: ClubViewModel by activityViewModels {
@@ -31,36 +30,10 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentClubDetailBinding.bind(view)
 
-        val binding = FragmentClubDetailBinding.bind(view)
-        _binding = binding
-        val id = args.clubId
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        binding.recyclerView.setController(carouselController)
-        binding.recyclerView.apply {
-            setController(carouselController)
-            layoutManager = LinearLayoutManager(
-                requireContext(), RecyclerView.VERTICAL, false
-            )
-        }
-        viewModel.retrieveClub(id).observe(this.viewLifecycleOwner) { selectedClubId ->
-            clubSummaryData = selectedClubId
-            bind(clubSummaryData)
-            val homeClubSummaryList = listOf(
-                HomeClubSummary(
-                    id = clubSummaryData.id,
-                    image = clubSummaryData.clubImage,
-                    name = "",
-                    representative = "",
-                    sentence = "",
-                    activityDayOfWeek = "",
-                    place = "",
-                    representativeId = ""
-                )
-            )
-            carouselController.setData(homeClubSummaryList)
-        }
+        setupRecyclerView()
+        observeClubData()
     }
 
     override fun onDestroyView() {
@@ -68,15 +41,43 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
         _binding = null
     }
 
-    private fun bind(clubSummaryData: ClubSummaryData) {
-        binding.apply {
-            clubName.text = clubSummaryData.clubName
-            clubSentence.text = clubSummaryData.clubSentence
-            clubActivityDay.text = clubSummaryData.clubActivityDay
-            activityPlace.text = clubSummaryData.activityPlace
-            clubRepresentatives.text = clubSummaryData.clubRepresentative
-            clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            setController(carouselController)
         }
     }
 
+    private fun observeClubData() {
+        val clubId = args.clubId
+        viewModel.retrieveClub(clubId).observe(viewLifecycleOwner) { clubData ->
+            bindClubData(clubData)
+            setCarouselData(clubData)
+        }
+    }
+
+    private fun bindClubData(clubData: ClubSummaryData) {
+        binding.apply {
+            clubName.text = clubData.clubName
+            clubSentence.text = clubData.clubSentence
+            clubActivityDay.text = clubData.clubActivityDay
+            activityPlace.text = clubData.activityPlace
+            clubRepresentatives.text = clubData.clubRepresentative
+            clubRepresentativeId.text = clubData.clubRepresentativeId
+        }
+    }
+
+    private fun setCarouselData(clubData: ClubSummaryData) {
+        val homeClubSummary = HomeClubSummary(
+            id = clubData.id,
+            image = clubData.clubImage,
+            name = "",
+            representative = "",
+            sentence = "",
+            activityDayOfWeek = "",
+            place = "",
+            representativeId = ""
+        )
+        carouselController.setData(listOf(homeClubSummary))
+    }
 }
