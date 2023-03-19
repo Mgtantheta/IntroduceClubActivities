@@ -68,16 +68,20 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     }
 
     private fun setCarouselData(clubData: ClubSummaryData) {
-        val homeClubSummary = HomeClubSummary(
-            id = clubData.id,
-            image = clubData.clubImage,
-            name = "",
-            representative = "",
-            sentence = "",
-            activityDayOfWeek = "",
-            place = "",
-            representativeId = ""
-        )
-        carouselController.setData(listOf(homeClubSummary))
+        val baseId = clubData.id
+        val homeClubSummaryList = List(5) { index ->
+            HomeClubSummary(
+                id = baseId * 1000 + index,
+                image = clubData.clubImage,
+                name = "",
+                representative = "",
+                sentence = "",
+                activityDayOfWeek = "",
+                place = "",
+                representativeId = ""
+            )
+        }
+        carouselController.setData(homeClubSummaryList)
     }
+
 }
