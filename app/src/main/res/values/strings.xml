@@ -25,7 +25,7 @@
     <string name="activity_place_innovation_center">活動場所: 滝沢イノベーションセンター</string>
     <string name="representative_sato">代表者: 佐藤佑哉</string>
     <string name="student_number_g031t071">g031t071</string>
-    <string name="club_summary_image">club__image</string>
+    <string name="club_summary_image">club_image</string>
     <string name="string_representative_id_input_title">representative id</string>
     <string name="hint_representative_id">学籍番号の入力</string>
     <string name="club_sentence_input_title">club_sentence</string>

@@ -1,5 +1,6 @@
 package com.muharuto.introduceclubactivities.detail
 
+import CarouselPictureController
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.muharuto.introduceclubactivities.ClubSummaryApplication
 import com.muharuto.introduceclubactivities.R
+import com.muharuto.introduceclubactivities.data.HomeClubSummary
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 import com.muharuto.introduceclubactivities.databinding.FragmentClubDetailBinding
 
@@ -19,6 +21,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     private val binding get() = _binding!!
 
     lateinit var clubSummaryData: ClubSummaryData
+    private val carouselController = CarouselPictureController()
 
     private val viewModel: ClubViewModel by activityViewModels {
         ClubViewModelFactory(
@@ -34,6 +37,8 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
         val id = args.clubId
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = CarouselPictureController()
+        binding.recyclerView.setController(carouselController)
+
         binding.recyclerView.apply {
             setController(adapter)
             layoutManager = LinearLayoutManager(
@@ -53,12 +58,31 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     private fun bind(clubSummaryData: ClubSummaryData) {
         binding.apply {
-            binding.clubName.text = clubSummaryData.clubName
-            binding.clubSentence.text = clubSummaryData.clubSentence
-            binding.clubActivityDay.text = clubSummaryData.clubActivityDay
-            binding.activityPlace.text = clubSummaryData.activityPlace
-            binding.clubRepresentatives.text = clubSummaryData.clubRepresentative
-            binding.clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
+            clubName.text = clubSummaryData.clubName
+            clubSentence.text = clubSummaryData.clubSentence
+            clubActivityDay.text = clubSummaryData.clubActivityDay
+            activityPlace.text = clubSummaryData.activityPlace
+            clubRepresentatives.text = clubSummaryData.clubRepresentative
+            clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
+
+            // Create a HomeClubSummary object from ClubSummaryData
+            val homeClubSummary = HomeClubSummary(
+                id = clubSummaryData.id,
+                image = clubSummaryData.clubImage,
+                name = clubSummaryData.clubName,
+                representative = clubSummaryData.clubRepresentative,
+                sentence = clubSummaryData.clubSentence,
+                activityDayOfWeek = clubSummaryData.clubActivityDay,
+                place = clubSummaryData.activityPlace,
+                representativeId = clubSummaryData.clubRepresentativeId
+            )
+
+            // Create a list of HomeClubSummary objects
+            val homeClubSummaryList = listOf(homeClubSummary)
+
+            // Update the carousel controller with the new data
+            carouselController.setData(homeClubSummaryList)
         }
     }
+
 }
