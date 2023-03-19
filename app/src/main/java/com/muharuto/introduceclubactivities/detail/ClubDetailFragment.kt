@@ -36,11 +36,10 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
         _binding = binding
         val id = args.clubId
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = CarouselPictureController()
-        binding.recyclerView.setController(carouselController)
 
+        binding.recyclerView.setController(carouselController)
         binding.recyclerView.apply {
-            setController(adapter)
+            setController(carouselController)
             layoutManager = LinearLayoutManager(
                 requireContext(), RecyclerView.VERTICAL, false
             )
