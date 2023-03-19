@@ -15,8 +15,7 @@ import com.muharuto.introduceclubactivities.databinding.FragmentClubDetailBindin
 class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     private val args: ClubDetailFragmentArgs by navArgs()
 
-    private var _binding: FragmentClubDetailBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentClubDetailBinding? = null
 
     lateinit var clubSummaryData: ClubSummaryData
 
@@ -29,12 +28,11 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentClubDetailBinding.bind(view)
-        _binding = binding
+        binding = FragmentClubDetailBinding.bind(view)
         val id = args.clubId
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         val adapter = CarouselPictureController()
-        binding.recyclerView.apply {
+        binding?.recyclerView?.apply {
             setController(adapter)
             layoutManager = LinearLayoutManager(
                 requireContext(), RecyclerView.VERTICAL, false
@@ -48,17 +46,17 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 
     private fun bind(clubSummaryData: ClubSummaryData) {
-        binding.apply {
-            binding.clubName.text = clubSummaryData.clubName
-            binding.clubSentence.text = clubSummaryData.clubSentence
-            binding.clubActivityDay.text = clubSummaryData.clubActivityDay
-            binding.activityPlace.text = clubSummaryData.activityPlace
-            binding.clubRepresentatives.text = clubSummaryData.clubRepresentative
-            binding.clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
+        binding?.apply {
+            clubName.text = clubSummaryData.clubName
+            clubSentence.text = clubSummaryData.clubSentence
+            clubActivityDay.text = clubSummaryData.clubActivityDay
+            activityPlace.text = clubSummaryData.activityPlace
+            clubRepresentatives.text = clubSummaryData.clubRepresentative
+            clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
         }
     }
 }
