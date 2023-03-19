@@ -21,7 +21,8 @@ class ClubAdapter(
     )
 
     override fun onBindViewHolder(
-        holder: ClubViewHolder, position: Int
+        holder: ClubViewHolder,
+        position: Int
     ) {
         val item = dataset[position]
         holder.bind(item, context, listener)
