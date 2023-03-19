@@ -54,7 +54,6 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
             activityPlace
         )
         insertClub(newClub)
-
     }
 
     fun isEntryValid(
