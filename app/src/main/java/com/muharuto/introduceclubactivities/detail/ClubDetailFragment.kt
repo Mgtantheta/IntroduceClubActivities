@@ -48,6 +48,19 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
         viewModel.retrieveClub(id).observe(this.viewLifecycleOwner) { selectedClubId ->
             clubSummaryData = selectedClubId
             bind(clubSummaryData)
+            val homeClubSummaryList = listOf(
+                HomeClubSummary(
+                    id = clubSummaryData.id,
+                    image = clubSummaryData.clubImage,
+                    name = "",
+                    representative = "",
+                    sentence = "",
+                    activityDayOfWeek = "",
+                    place = "",
+                    representativeId = ""
+                )
+            )
+            carouselController.setData(homeClubSummaryList)
         }
     }
 
@@ -64,24 +77,6 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
             activityPlace.text = clubSummaryData.activityPlace
             clubRepresentatives.text = clubSummaryData.clubRepresentative
             clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
-
-            // Create a HomeClubSummary object from ClubSummaryData
-            val homeClubSummary = HomeClubSummary(
-                id = clubSummaryData.id,
-                image = clubSummaryData.clubImage,
-                name = clubSummaryData.clubName,
-                representative = clubSummaryData.clubRepresentative,
-                sentence = clubSummaryData.clubSentence,
-                activityDayOfWeek = clubSummaryData.clubActivityDay,
-                place = clubSummaryData.activityPlace,
-                representativeId = clubSummaryData.clubRepresentativeId
-            )
-
-            // Create a list of HomeClubSummary objects
-            val homeClubSummaryList = listOf(homeClubSummary)
-
-            // Update the carousel controller with the new data
-            carouselController.setData(homeClubSummaryList)
         }
     }
 
