@@ -15,7 +15,7 @@ import com.muharuto.introduceclubactivities.databinding.FragmentClubDetailBindin
 class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     private val args: ClubDetailFragmentArgs by navArgs()
 
-    private var binding: FragmentClubDetailBinding? = null
+    private var fragmentClubDetailBinding: FragmentClubDetailBinding? = null
 
     lateinit var clubSummaryData: ClubSummaryData
 
@@ -28,11 +28,14 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentClubDetailBinding.bind(view)
+        val binding = FragmentClubDetailBinding.bind(view)
+        fragmentClubDetailBinding = binding
         val id = args.clubId
-        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        fragmentClubDetailBinding?.recyclerView?.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+        }
         val adapter = CarouselPictureController()
-        binding?.recyclerView?.apply {
+        fragmentClubDetailBinding?.recyclerView?.apply {
             setController(adapter)
             layoutManager = LinearLayoutManager(
                 requireContext(), RecyclerView.VERTICAL, false
@@ -46,11 +49,11 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        fragmentClubDetailBinding = null
     }
 
     private fun bind(clubSummaryData: ClubSummaryData) {
-        binding?.apply {
+        fragmentClubDetailBinding?.apply {
             clubName.text = clubSummaryData.clubName
             clubSentence.text = clubSummaryData.clubSentence
             clubActivityDay.text = clubSummaryData.clubActivityDay
