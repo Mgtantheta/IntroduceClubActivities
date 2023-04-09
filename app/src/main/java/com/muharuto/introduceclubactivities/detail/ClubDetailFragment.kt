@@ -18,7 +18,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     private val args: ClubDetailFragmentArgs by navArgs()
 
     private var _binding: FragmentClubDetailBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw IllegalStateException("View binding is null")
 
     private val carouselController = CarouselPictureController()
 
