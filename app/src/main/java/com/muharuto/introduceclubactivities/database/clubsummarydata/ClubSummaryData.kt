@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "clubSummaryData")
 data class ClubSummaryData(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @NotNull @DrawableRes @ColumnInfo("club_image") val clubImage: ByteArray,
+    @NotNull @ColumnInfo("club_image") val clubImage: ByteArray,
     @NotNull @ColumnInfo("club_name") val clubName: String,
     @NotNull @ColumnInfo("club_representative") val clubRepresentative: String,
     @NotNull @ColumnInfo("club_sentence") val clubSentence: String,
