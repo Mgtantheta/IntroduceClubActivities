@@ -1,6 +1,8 @@
 package com.muharuto.introduceclubactivities.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -11,12 +13,30 @@ import kotlinx.coroutines.launch
 
 class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
 
-    val clubSummaryList = clubSummaryDao.fetchClubs()
+    private val _clubSummaryList = MutableLiveData<List<ClubSummaryData>>()
+    val clubSummaryList: LiveData<List<ClubSummaryData>> = _clubSummaryList
+
+    private val clubsObserver = Observer<List<ClubSummaryData>> { clubs ->
+        _clubSummaryList.value = clubs
+    }
+
+    init {
+        fetchClubs()
+    }
 
     private fun insertClub(clubSummaryData: ClubSummaryData) {
         viewModelScope.launch {
             clubSummaryDao.insert(clubSummaryData)
         }
+    }
+
+    private fun fetchClubs() {
+        clubSummaryDao.fetchClubs().observeForever(clubsObserver)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        clubSummaryDao.fetchClubs().removeObserver(clubsObserver)
     }
 
     private fun getNewClubEntry(
