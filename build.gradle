@@ -6,8 +6,8 @@ buildscript {
         roomVersion = "2.5.0"
         lifecycleVersion = "2.5.1"
         navVersion = "2.5.3"
+        activityVersion = "1.6.1"
     }
-
     repositories {
         google()
     }

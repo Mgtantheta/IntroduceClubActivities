@@ -1,5 +1,6 @@
 package com.muharuto.introduceclubactivities.database.clubsummarydata
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -8,13 +9,11 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface ClubSummaryDao {
 
-//TODO: 後で使う
-//    @Query("SELECT * FROM clubSummaryData ORDER BY club_name")
-//    fun getItems(): Flow<List<ClubSummaryData>>
+    @Query("SELECT * FROM clubSummaryData ORDER BY club_name")
+    fun fetchClubs(): LiveData<List<ClubSummaryData>>
 
     @Query("SELECT * FROM clubSummaryData WHERE id = :id")
     fun getClub(id: Int): Flow<ClubSummaryData>

@@ -4,22 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.muharuto.introduceclubactivities.data.ClubSummary
+import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 import com.muharuto.introduceclubactivities.databinding.ClubSummaryItemBinding
 
 class ClubAdapter(
     private val context: Context,
-    private val dataset: List<ClubSummary>,
+    private val dataset: List<ClubSummaryData>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<ClubViewHolder>() {
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): ClubViewHolder = ClubViewHolder(
         ClubSummaryItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+            LayoutInflater.from(parent.context), parent, false
         )
     )
 
@@ -33,6 +30,6 @@ class ClubAdapter(
     override fun getItemCount() = dataset.size
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(id: Int)
     }
 }

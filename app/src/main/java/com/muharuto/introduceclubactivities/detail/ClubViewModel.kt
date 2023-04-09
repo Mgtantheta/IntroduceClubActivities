@@ -1,30 +1,17 @@
 package com.muharuto.introduceclubactivities.detail
 
-import androidx.lifecycle.*
-import com.muharuto.introduceclubactivities.R
-import com.muharuto.introduceclubactivities.data.ActivityDayOfWeek
-import com.muharuto.introduceclubactivities.data.ClubSummary
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
 import kotlinx.coroutines.launch
 
 class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
-    private val _clubSummaryList = MutableLiveData<List<ClubSummary>>()
-    val clubSummaryList: LiveData<List<ClubSummary>> = _clubSummaryList
 
-    init {
-        _clubSummaryList.value = listOf(
-            ClubSummary(
-                id = 1,
-                image = R.drawable.sample,
-                name = "東北テック道場",
-                representative = "佐藤佑哉",
-                sentence = "日曜日やってます！",
-                activityDayOfWeek = listOf(ActivityDayOfWeek.SUNDAY),
-                representativeId = "g031t999"
-            )
-        )
-    }
+    val clubSummaryList = clubSummaryDao.fetchClubs()
 
     private fun insertClub(clubSummaryData: ClubSummaryData) {
         viewModelScope.launch {
@@ -59,12 +46,12 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         activityPlace: String
     ) {
         val newClub = getNewClubEntry(
-            clubName,
-            clubRepresentative,
-            clubSentence,
-            clubActivityDayOfWeek,
-            representativeId,
-            activityPlace
+            clubName = clubName,
+            clubRepresentative = clubRepresentative,
+            clubSentence = clubSentence,
+            clubActivityDayOfWeek = clubActivityDayOfWeek,
+            representativeId = representativeId,
+            activityPlace = activityPlace
         )
         insertClub(newClub)
     }
@@ -83,7 +70,7 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         return true
     }
 
-    fun retrieveItem(id: Int): LiveData<ClubSummaryData> {
+    fun retrieveClub(id: Int): LiveData<ClubSummaryData> {
         return clubSummaryDao.getClub(id).asLiveData()
     }
 
