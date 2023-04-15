@@ -15,8 +15,7 @@ import com.muharuto.introduceclubactivities.databinding.FragmentClubDetailBindin
 class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
     private val args: ClubDetailFragmentArgs by navArgs()
 
-    private var _binding: FragmentClubDetailBinding? = null
-    private val binding get() = _binding!!
+    private var fragmentClubDetailBinding: FragmentClubDetailBinding? = null
 
     lateinit var clubSummaryData: ClubSummaryData
 
@@ -30,17 +29,20 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentClubDetailBinding.bind(view)
-        _binding = binding
+        fragmentClubDetailBinding = binding
         val id = args.clubId
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.retrieveClub(id)
+        fragmentClubDetailBinding?.recyclerView?.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+        }
         val adapter = CarouselPictureController()
-        binding.recyclerView.apply {
+        fragmentClubDetailBinding?.recyclerView?.apply {
             setController(adapter)
             layoutManager = LinearLayoutManager(
                 requireContext(), RecyclerView.VERTICAL, false
             )
         }
-        viewModel.retrieveClub(id).observe(this.viewLifecycleOwner) { selectedClubId ->
+        viewModel.clubSummary.observe(this.viewLifecycleOwner) { selectedClubId ->
             clubSummaryData = selectedClubId
             bind(clubSummaryData)
         }
@@ -48,17 +50,17 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        fragmentClubDetailBinding = null
     }
 
     private fun bind(clubSummaryData: ClubSummaryData) {
-        binding.apply {
-            binding.clubName.text = clubSummaryData.clubName
-            binding.clubSentence.text = clubSummaryData.clubSentence
-            binding.clubActivityDay.text = clubSummaryData.clubActivityDay
-            binding.activityPlace.text = clubSummaryData.activityPlace
-            binding.clubRepresentatives.text = clubSummaryData.clubRepresentative
-            binding.clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
+        fragmentClubDetailBinding?.apply {
+            clubName.text = clubSummaryData.clubName
+            clubSentence.text = clubSummaryData.clubSentence
+            clubActivityDay.text = clubSummaryData.clubActivityDay
+            activityPlace.text = clubSummaryData.activityPlace
+            clubRepresentatives.text = clubSummaryData.clubRepresentative
+            clubRepresentativeId.text = clubSummaryData.clubRepresentativeId
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.muharuto.introduceclubactivities.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
@@ -11,11 +11,27 @@ import kotlinx.coroutines.launch
 
 class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
 
-    val clubSummaryList = clubSummaryDao.fetchClubs()
+    private val _clubSummaryList = MutableLiveData<List<ClubSummaryData>>()
+    val clubSummaryList: LiveData<List<ClubSummaryData>> = _clubSummaryList
+
+    private val _clubSummary = MutableLiveData<ClubSummaryData>()
+    val clubSummary: LiveData<ClubSummaryData> = _clubSummary
+
+    init {
+        fetchClubs()
+    }
 
     private fun insertClub(clubSummaryData: ClubSummaryData) {
         viewModelScope.launch {
             clubSummaryDao.insert(clubSummaryData)
+            fetchClubs()
+        }
+    }
+
+    private fun fetchClubs() {
+        viewModelScope.launch {
+            val clubs = clubSummaryDao.fetchClubs()
+            _clubSummaryList.postValue(clubs)
         }
     }
 
@@ -70,8 +86,11 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         return true
     }
 
-    fun retrieveClub(id: Int): LiveData<ClubSummaryData> {
-        return clubSummaryDao.getClub(id).asLiveData()
+    fun retrieveClub(id: Int) {
+        viewModelScope.launch {
+            val club = clubSummaryDao.getClub(id)
+            _clubSummary.postValue(club)
+        }
     }
 
 }
