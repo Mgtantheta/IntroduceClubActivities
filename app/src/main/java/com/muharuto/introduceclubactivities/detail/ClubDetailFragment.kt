@@ -31,6 +31,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
         val binding = FragmentClubDetailBinding.bind(view)
         fragmentClubDetailBinding = binding
         val id = args.clubId
+        viewModel.retrieveClub(id)
         fragmentClubDetailBinding?.recyclerView?.apply {
             layoutManager = LinearLayoutManager(requireContext())
         }
@@ -41,7 +42,7 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
                 requireContext(), RecyclerView.VERTICAL, false
             )
         }
-        viewModel.retrieveClub(id).observe(this.viewLifecycleOwner) { selectedClubId ->
+        viewModel.clubSummary.observe(this.viewLifecycleOwner) { selectedClubId ->
             clubSummaryData = selectedClubId
             bind(clubSummaryData)
         }

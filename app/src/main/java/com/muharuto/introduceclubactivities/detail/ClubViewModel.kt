@@ -2,10 +2,8 @@ package com.muharuto.introduceclubactivities.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryDao
 import com.muharuto.introduceclubactivities.database.clubsummarydata.ClubSummaryData
@@ -16,9 +14,8 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     private val _clubSummaryList = MutableLiveData<List<ClubSummaryData>>()
     val clubSummaryList: LiveData<List<ClubSummaryData>> = _clubSummaryList
 
-    private val clubsObserver = Observer<List<ClubSummaryData>> { clubs ->
-        _clubSummaryList.value = clubs
-    }
+    private val _clubSummary = MutableLiveData<ClubSummaryData>()
+    val clubSummary: LiveData<ClubSummaryData> = _clubSummary
 
     init {
         fetchClubs()
@@ -27,16 +24,15 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
     private fun insertClub(clubSummaryData: ClubSummaryData) {
         viewModelScope.launch {
             clubSummaryDao.insert(clubSummaryData)
+            fetchClubs()
         }
     }
 
     private fun fetchClubs() {
-        clubSummaryDao.fetchClubs().observeForever(clubsObserver)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        clubSummaryDao.fetchClubs().removeObserver(clubsObserver)
+        viewModelScope.launch {
+            val clubs = clubSummaryDao.fetchClubs()
+            _clubSummaryList.postValue(clubs)
+        }
     }
 
     private fun getNewClubEntry(
@@ -90,8 +86,11 @@ class ClubViewModel(private val clubSummaryDao: ClubSummaryDao) : ViewModel() {
         return true
     }
 
-    fun retrieveClub(id: Int): LiveData<ClubSummaryData> {
-        return clubSummaryDao.getClub(id).asLiveData()
+    fun retrieveClub(id: Int) {
+        viewModelScope.launch {
+            val club = clubSummaryDao.getClub(id)
+            _clubSummary.postValue(club)
+        }
     }
 
 }
