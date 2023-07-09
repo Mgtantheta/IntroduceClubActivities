@@ -2,7 +2,9 @@ package com.muharuto.introduceclubactivities.add
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -17,11 +19,14 @@ import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.databinding.FragementAddClubSummaryBinding
 import com.muharuto.introduceclubactivities.detail.ClubViewModel
 import com.muharuto.introduceclubactivities.detail.ClubViewModelFactory
+import java.io.ByteArrayOutputStream
 
 class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
 
     private var _binding: FragementAddClubSummaryBinding? = null
     private val binding get() = _binding!!
+
+    private var byteArray: ByteArray? = null
 
     private val launcher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -34,6 +39,12 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
                     val inputStream = activity?.contentResolver?.openInputStream(uri)
                     val image = BitmapFactory.decodeStream(inputStream)
                     binding.picture1.setImageBitmap(image)
+
+                    val imageView = binding.picture1
+                    val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+                    val stream = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                    byteArray = stream.toByteArray()
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "エラーが発生しました", Toast.LENGTH_LONG).show()
@@ -41,13 +52,9 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
         }
     }
 
-//    private val imageView: ImageView
-//        // TODO: ディスプレイするようのview
-//        get() = binding.picture1
-
     private val viewModel: ClubViewModel by activityViewModels {
         ClubViewModelFactory(
-            (activity?.application as ClubSummaryApplication).database.clubSummaryDao()
+            (activity?.applicationContext as ClubSummaryApplication).database.clubSummaryDao()
         )
     }
 
@@ -87,6 +94,11 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
     }
 
     private fun addNewClub() {
+        val byteArray = this.byteArray ?: return Toast.makeText(
+            requireContext(),
+            "写真を選択してください",
+            Toast.LENGTH_LONG
+        ).show()
         val checkboxes = listOf(
             binding.sun,
             binding.mon,
@@ -97,6 +109,7 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
             binding.sat
         )
         viewModel.addNewClub(
+            clubImage = byteArray,
             clubName = binding.clubNameTextBox.text.toString(),
             clubRepresentative = binding.representativeNameTextBox.text.toString(),
             clubSentence = binding.clubSentenceTextBox.text.toString(),
@@ -116,8 +129,8 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
     private fun selectPhoto() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
         }
-        intent.type = "image/*"
         launcher.launch(intent)
     }
 
