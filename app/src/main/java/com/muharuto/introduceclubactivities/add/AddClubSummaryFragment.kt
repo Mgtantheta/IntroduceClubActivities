@@ -81,7 +81,7 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
         super.onDestroyView()
         _binding = null
     }
-    
+
 //    private fun isEntryValid(): Boolean {
 //        return viewModel.isEntryValid(
 //            clubName = binding.clubNameTextBox.text.toString(),
