@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.muharuto.introduceclubactivities.ClubSummaryApplication
 import com.muharuto.introduceclubactivities.R
 import com.muharuto.introduceclubactivities.data.HomeClubSummary
@@ -43,21 +42,20 @@ class ClubDetailFragment : Fragment(R.layout.fragment_club_detail) {
 
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            layoutManager = LinearLayoutManager(context)
             setController(carouselController)
         }
     }
 
     private fun observeClubData() {
-        val clubId = args.clubId
-        viewModel.retrieveClub(clubId).observe(viewLifecycleOwner) { clubData ->
+        viewModel.retrieveClub(args.clubId).observe(viewLifecycleOwner) { clubData ->
             bindClubData(clubData)
             setCarouselData(clubData)
         }
     }
 
     private fun bindClubData(clubData: ClubSummaryData) {
-        binding.apply {
+        binding.run {
             clubName.text = clubData.clubName
             clubSentence.text = clubData.clubSentence
             clubActivityDay.text = clubData.clubActivityDay

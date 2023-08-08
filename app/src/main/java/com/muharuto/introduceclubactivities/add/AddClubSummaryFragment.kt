@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -33,22 +32,24 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
     ) { result ->
         if (result.resultCode != RESULT_OK) {
             return@registerForActivityResult
-        } else {
-            try {
-                result.data?.data?.also { uri: Uri ->
-                    val inputStream = activity?.contentResolver?.openInputStream(uri)
-                    val image = BitmapFactory.decodeStream(inputStream)
-                    binding.picture1.setImageBitmap(image)
+        }
 
-                    val imageView = binding.picture1
-                    val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-                    val stream = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                    byteArray = stream.toByteArray()
-                }
-            } catch (e: Exception) {
+        val uri = result.data?.data
+        if (uri == null) {
+            Toast.makeText(requireContext(), "エラーが発生しました", Toast.LENGTH_LONG).show()
+            return@registerForActivityResult
+        }
+
+        try {
+            val image = readImageFromUri(uri)
+            if (image != null) {
+                binding.picture1.setImageBitmap(image)
+                byteArray = convertBitmapToByteArray(image)
+            } else {
                 Toast.makeText(requireContext(), "エラーが発生しました", Toast.LENGTH_LONG).show()
             }
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "画像の読み込みに失敗しました", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -80,24 +81,21 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
         super.onDestroyView()
         _binding = null
     }
-
-    // TODO: バリデーションチェックをするため
-    private fun isEntryValid(): Boolean {
-        return viewModel.isEntryValid(
-            clubName = binding.clubNameTextBox.text.toString(),
-            clubRepresentative = binding.representativeNameTextBox.text.toString(),
-            clubSentence = binding.clubSentenceTextBox.text.toString(),
-            clubActivityDayOfWeek = binding.activityDateCheckbox.toString(),
-            representativeId = binding.representativeIdTextBox.text.toString(),
-            activityPlace = binding.activityPlaceTextBox.text.toString()
-        )
-    }
+    
+//    private fun isEntryValid(): Boolean {
+//        return viewModel.isEntryValid(
+//            clubName = binding.clubNameTextBox.text.toString(),
+//            clubRepresentative = binding.representativeNameTextBox.text.toString(),
+//            clubSentence = binding.clubSentenceTextBox.text.toString(),
+//            clubActivityDayOfWeek = binding.activityDateCheckbox.toString(),
+//            representativeId = binding.representativeIdTextBox.text.toString(),
+//            activityPlace = binding.activityPlaceTextBox.text.toString()
+//        )
+//    }
 
     private fun addNewClub() {
         val byteArray = this.byteArray ?: return Toast.makeText(
-            requireContext(),
-            "写真を選択してください",
-            Toast.LENGTH_LONG
+            requireContext(), "写真を選択してください", Toast.LENGTH_LONG
         ).show()
         val checkboxes = listOf(
             binding.sun,
@@ -124,6 +122,18 @@ class AddClubSummaryFragment : Fragment(R.layout.fragement_add_club_summary) {
     private fun createSelectedDaysJoinToString(checkboxes: List<CheckBox>): String {
         val selectedDays = checkboxes.filter { it.isChecked }.map { it.text.toString() }
         return selectedDays.joinToString(", ")
+    }
+
+    private fun readImageFromUri(uri: Uri): Bitmap? {
+        return activity?.contentResolver?.openInputStream(uri)?.use {
+            BitmapFactory.decodeStream(it)
+        }
+    }
+
+    private fun convertBitmapToByteArray(bitmap: Bitmap): ByteArray {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        return stream.toByteArray()
     }
 
     private fun selectPhoto() {
